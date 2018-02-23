@@ -1,0 +1,11 @@
+logging:
+  level: INFO
+  loggers:
+    "com.agentcoon": DEBUG
+
+allowCORS: true
+
+server:
+  applicationConnectors:
+  - type: h2c
+    maxRequestHeaderSize: 100KiB

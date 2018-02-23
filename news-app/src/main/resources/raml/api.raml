@@ -1,0 +1,67 @@
+#%RAML 1.0
+title: News Service API
+version: v1
+documentation:
+  - title: Getting Started
+    content: |
+      # Provides
+        * Top headlines
+        * Articles
+        * Sources
+baseUri: http://localhost:8080/{version}
+
+types:
+  article:
+    type: object
+    properties:
+      author:
+        type: string
+      title:
+        type: string
+      description:
+        type: string
+      date:
+        type: string
+      sourceName:
+        type: string
+      articleUrl:
+        type: string
+      imageUrl:
+        type: string
+  topHeadlines:
+    type: object
+    properties:
+      country:
+        type: string
+      category:
+        type: string
+        enum: ["business", "entertainment", "general", "health", "science", "sports", "technology"]
+      articles:
+        type: array
+        items: article
+  source:
+    type: object
+    properties:
+      id:
+        type: string
+      name:
+        type: string
+      description:
+        type: string
+      url:
+        type: string
+      category:
+        type: string
+      language:
+        type: string
+      country:
+        type: string
+
+/news/{lang}/{category}:
+  get:
+    description: Get top headlines for country and category
+    responses:
+      200:
+        body:
+          application/json:
+            type: topHeadlines
