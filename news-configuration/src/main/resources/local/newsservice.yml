@@ -5,6 +5,10 @@ logging:
 
 allowCORS: true
 
+newsApiConfiguration:
+  url: https://newsapi.org/v2/
+  apiKey: 4993b49f8ca14d439cbea12258da5ce1
+
 server:
   applicationConnectors:
   - type: h2c

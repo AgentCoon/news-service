@@ -110,6 +110,8 @@
     <modules>
         <module>news-app</module>
         <module>news-configuration</module>
+        <module>news-api-client</module>
+        <module>news-api</module>
     </modules>
 
 </project>

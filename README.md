@@ -27,11 +27,11 @@ JDK 8 is required to run application
 
 Application runs as a standard Java program with a main method. Jetty is embedded so there's no need to run as a WAR.
 
-module: news-service-app
+module: news-app
 
 main class: com.agentcoon.news.app.dropwizard.NewsApplication
 
-parameters: server ${workspace_loc:/newsservice-configuration}/src/main/resources/local/newsservice.yml
+parameters: server ${workspace_loc:/news-configuration}/src/main/resources/local/newsservice.yml
 
 Application is running under http://localhost:8080.
 
