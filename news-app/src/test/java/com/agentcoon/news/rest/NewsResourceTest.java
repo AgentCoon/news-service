@@ -66,7 +66,7 @@ public class NewsResourceTest {
         when(topHeadlinesSearchService.searchTopHeadlineNews(searchQuery)).thenReturn(Collections.singletonList(article));
         when(articleMapper.from(article)).thenReturn(articleDto);
 
-        Response response = newsResource.search(searchQuery);
+        Response response = newsResource.searchTopHeadlines(searchQuery);
 
         assertEquals(200, response.getStatus());
         List<Article> result = (List<Article>) response.getEntity();

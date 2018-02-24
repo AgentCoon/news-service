@@ -4,11 +4,14 @@ import java.util.List;
 
 public class TopHeadlinesDto {
 
-    private final String country;
-    private final String category;
-    private final List<ArticleDto> articles;
+    private String country;
+    private String category;
+    private List<ArticleDto> articles;
 
-    private TopHeadlinesDto(String country, String category, List<ArticleDto> articles) {
+    public TopHeadlinesDto() {
+    }
+
+    public TopHeadlinesDto(String country, String category, List<ArticleDto> articles) {
         this.country = country;
         this.category = category;
         this.articles = articles;

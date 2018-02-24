@@ -114,6 +114,7 @@
         <module>news-api</module>
         <module>news-domain</module>
         <module>news-infrastructure</module>
+        <module>news-acceptance-test</module>
     </modules>
 
 </project>

@@ -1,0 +1,15 @@
+logging:
+  level: INFO
+  loggers:
+    "com.agentcoon": INFO
+
+allowCORS: true
+
+newsApiConfiguration:
+  url: {{ newsApiConfiguration.url }}
+  apiKey: {{ newsApiConfiguration.apiKey }}
+
+server:
+  applicationConnectors:
+  - type: h2c
+    maxRequestHeaderSize: 100KiB

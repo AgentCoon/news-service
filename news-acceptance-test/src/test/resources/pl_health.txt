@@ -1,0 +1,30 @@
+{
+  "status": "ok",
+  "totalResults": 20,
+  "articles": [
+    {
+      "source": {
+        "id": null,
+        "name": "Wprost.pl"
+      },
+      "author": null,
+      "title": "Lekarz po dwóch minutach odesłał go ze szpitala. Nazajutrz pacjent zmarł",
+      "description": "Trafił do szpitala z silnym bólem w klatce piersiowej. Lekarz, po dwóch minutach, bez badań odesłał go do domu. Pan Bogusław zmarł następnego dnia w drodze do szpitala.",
+      "url": "https://www.wprost.pl/kraj/10106677/lekarz-po-dwoch-minutach-odeslal-go-ze-szpitala-nazajutrz-pacjent-zmarl.html",
+      "urlToImage": "https://www.wprost.pl/_thumb/68/04/66d9eb834a31d28a455240156044.jpeg",
+      "publishedAt": "2018-02-24T19:53:00Z"
+    },
+    {
+      "source": {
+        "id": null,
+        "name": "Naszemiasto.pl"
+      },
+      "author": "BOK",
+      "title": "Poznańscy seniorzy będą czekać krócej na operacje zaćmy",
+      "description": "&nbsp;",
+      "url": "http://lubon.naszemiasto.pl/artykul/poznanscy-seniorzy-beda-czekac-krocej-na-operacje-zacmy,4529744,art,t,id,tm.html",
+      "urlToImage": "https://d-nm.ppstatic.pl/kadr/k/r/1a/cf/5a91a39425271_o,size,610x0,q,70,h,244f1d.jpg",
+      "publishedAt": "2018-02-24T18:28:40Z"
+    }
+  ]
+}

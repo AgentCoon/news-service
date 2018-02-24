@@ -16,6 +16,9 @@ public class ArticleDto {
     private String articleUrl;
     private String imageUrl;
 
+    public ArticleDto() {
+    }
+
     public ArticleDto(String author, String title, String description, LocalDate date, String sourceName, String articleUrl, String imageUrl) {
         this.author = author;
         this.title = title;
