@@ -1,6 +1,7 @@
 package com.agentcoon.news.news.client;
 
-import com.agentcoon.news.news.client.api.TopHeadlinesDto;
+import com.agentcoon.news.news.client.api.SourcesResponseDto;
+import com.agentcoon.news.news.client.api.TopHeadlinesResponseDto;
 import com.agentcoon.news.news.client.exception.NewsApiClientException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,9 +23,12 @@ public class NewsApiGateway {
         this.apiKey = apiKey;
     }
 
-    public TopHeadlinesDto getTopHeadlines(String country, String category) throws NewsApiClientException {
-        return send(newsApiClient.getTopHeadlines(country, category, apiKey),
-                String.format("failed to get top headlines for country: %s and category: %s", country, category));
+    public TopHeadlinesResponseDto searchTopHeadlines(String query, String country, String category, Integer page, Integer pageSize) throws NewsApiClientException {
+        return send(newsApiClient.searchTopHeadlines(query, country, category, page, pageSize, apiKey), "failed to get top headlines from News API");
+    }
+
+    public SourcesResponseDto searchSources(String category, String country, String language) throws NewsApiClientException {
+        return send(newsApiClient.searchSources(category, country, language, apiKey), "failed to get article sources from News API");
     }
 
     private <T> T send(Call<T> call, String errorMsg) throws NewsApiClientException {

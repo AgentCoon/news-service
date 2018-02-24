@@ -112,6 +112,8 @@
         <module>news-configuration</module>
         <module>news-api-client</module>
         <module>news-api</module>
+        <module>news-domain</module>
+        <module>news-infrastructure</module>
     </modules>
 
 </project>
