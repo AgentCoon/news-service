@@ -2,6 +2,8 @@
 
 ## Overview
 
+A service fetching top news and browsing news sources from [News API](https://newsapi.org).
+
 
 ## API
 
@@ -25,13 +27,13 @@ JDK 8 is required to run application
 
 ### Running application
 
-Application runs as a standard Java program with a main method. Jetty is embedded so there's no need to run as a WAR.
+Application runs as a standard Java program with a main method.
 
 module: news-app
 
 main class: com.agentcoon.news.app.dropwizard.NewsApplication
 
-parameters: server ${workspace_loc:/news-configuration}/src/main/resources/local/newsservice.yml
+parameters: server ${workspace_loc}/news-configuration/src/main/resources/local/newsservice.yml
 
 Application is running under http://localhost:8080.
 

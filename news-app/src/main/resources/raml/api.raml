@@ -16,26 +16,34 @@ types:
     properties:
       author:
         type: string
+        required: false
       title:
         type: string
+        required: false
       description:
         type: string
+        required: false
       date:
         type: string
+        required: false
       sourceName:
         type: string
+        required: false
       articleUrl:
         type: string
+        required: false
       imageUrl:
         type: string
+        required: false
   topHeadlines:
     type: object
     properties:
       country:
         type: string
+        required: true
       category:
         type: string
-        enum: ["business", "entertainment", "general", "health", "science", "sports", "technology"]
+        required: true
       articles:
         type: array
         items: article
@@ -44,24 +52,98 @@ types:
     properties:
       id:
         type: string
+        required: false
       name:
         type: string
+        required: false
       description:
         type: string
+        required: false
       url:
         type: string
+        required: false
       category:
         type: string
+        required: false
       language:
         type: string
+        required: false
       country:
         type: string
+        required: false
+  error:
+    type: object
+    properties:
+      message:
+        type: string
+        required: true
 
-/news/{lang}/{category}:
-  get:
-    description: Get top headlines for country and category
-    responses:
-      200:
-        body:
-          application/json:
-            type: topHeadlines
+/news:
+  /{country}/{category}:
+    get:
+      description: Get top headlines for country and category
+      queryParameters:
+        query:
+          type: string
+          description: A search string or keyword
+          example: nanotubes
+          required: false
+        page:
+          type: number
+          description: Page number to return. Defaults to 0.
+          example: 3
+          required: false
+        pageSize:
+          type: number
+          description: Number of articles per page. Max 100. Defaults to 20.
+          example: 28
+          required: false
+      responses:
+        200:
+          body:
+            application/json:
+              type: topHeadlines
+        400:
+          body:
+            application/json:
+              type: error
+        500:
+          body:
+            application/json:
+              type: error
+              example: |
+                {
+                "message": "An exception occurred."
+                }
+  /sources:
+    get:
+      description: Get a list of sources
+      queryParameters:
+        category:
+          type: string
+          description: A category of news sources publish.
+          example: general
+          required: false
+        language:
+          type: string
+          description: Language in which sources display their news.
+          example: pt
+          required: false
+        country:
+          type: string
+          description: Country in which sources are displaying their news.
+          example: kr
+          required: false
+      responses:
+        200:
+          body:
+            application/json:
+              type: array
+              items: source
+        500:
+          body:
+            application/json:
+              example: |
+                {
+                 "message": "An exception occurred."
+                }

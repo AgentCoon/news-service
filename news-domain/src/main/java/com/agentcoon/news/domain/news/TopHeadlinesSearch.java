@@ -2,8 +2,8 @@ package com.agentcoon.news.domain.news;
 
 public class TopHeadlinesSearch {
 
-    public static final int DEFAULT_PAGE = 0;
-    public static final int DEFAULT_PAGE_SIZE = 20;
+    private static final int DEFAULT_PAGE = 0;
+    private static final int DEFAULT_PAGE_SIZE = 20;
 
     private final Integer pageSize;
     private final Integer page;

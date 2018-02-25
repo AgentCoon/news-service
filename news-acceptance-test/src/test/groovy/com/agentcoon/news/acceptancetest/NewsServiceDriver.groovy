@@ -68,6 +68,15 @@ class NewsServiceDriver {
                 .get("/v1/news/{country}/{category}", country, category).asString()
     }
 
+    void topHeadlinesSearchReturns400Error(String country, String category, Integer pageSize) {
+
+        given().spec(appSpec)
+                .queryParam("pageSize", pageSize)
+                .expect()
+                .statusCode(400)
+                .when()
+                .get("/v1/news/{country}/{category}", country, category).asString()
+    }
 
     void sourcesAreFoundForCountry(String country) {
 

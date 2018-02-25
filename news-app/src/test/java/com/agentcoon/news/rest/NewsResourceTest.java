@@ -97,6 +97,18 @@ public class NewsResourceTest {
     }
 
     @Test
+    public void searchTopHeadlinesWhenInvalidPageSize() throws NewsGatewayException {
+        String country = "pl";
+        String category = "health";
+        Integer pageSize = 568;
+
+        Response response = newsResource.searchTopHeadlines(country, category, null, null, pageSize);
+        assertEquals(400, response.getStatus());
+        verify(topHeadlinesSearchService, never()).searchTopHeadlineNews(any());
+        verify(articleMapper, never()).from(any(), any(), any());
+    }
+
+    @Test
     public void searchSources() throws NewsGatewayException {
         String language = "pl";
         String country = "pl";

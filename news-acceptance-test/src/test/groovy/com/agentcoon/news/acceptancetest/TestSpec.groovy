@@ -52,6 +52,18 @@ class TestSpec extends Specification {
         newsService.topHeadlinesAreFoundForFilteredQuery(country, category, query, page, pageSize)
     }
 
+    def "Should return an error when page size greater than 100"() {
+        logger.info("TestSpec: Should return an error when page size greater than 100")
+
+        when:
+        String country = "pl"
+        String category = "health"
+        Integer pageSize = 800
+
+        then:
+        newsService.topHeadlinesSearchReturns400Error(country, category, pageSize)
+    }
+
     def "Should return an error when News client fails"() {
         logger.info("TestSpec: Should return an error when News client fails")
 

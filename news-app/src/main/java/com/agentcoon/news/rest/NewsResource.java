@@ -46,6 +46,11 @@ public class NewsResource {
                                        @QueryParam("page") Integer page,
                                        @QueryParam("pageSize") Integer pageSize) {
 
+        if(pageSize != null && pageSize > 100) {
+            return Response.status(Response.Status.BAD_REQUEST)
+                    .entity(new ErrorDto("Page size must be less than or equal to 100")).build();
+        }
+
         TopHeadlinesSearch searchQuery = aTopHeadlinesSearch()
                 .withQuery(query)
                 .withCountry(country)
