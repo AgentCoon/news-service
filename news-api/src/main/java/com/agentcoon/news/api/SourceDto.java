@@ -2,13 +2,16 @@ package com.agentcoon.news.api;
 
 public class SourceDto {
 
-    private final String id;
-    private final String name;
-    private final String description;
-    private final String url;
-    private final String category;
-    private final String language;
-    private final String country;
+    private String id;
+    private String name;
+    private String description;
+    private String url;
+    private String category;
+    private String language;
+    private String country;
+
+    public SourceDto() {
+    }
 
     private SourceDto(String id, String name, String description, String url, String category, String language, String country) {
         this.id = id;

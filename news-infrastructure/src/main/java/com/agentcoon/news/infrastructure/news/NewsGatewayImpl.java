@@ -20,13 +20,13 @@ public class NewsGatewayImpl implements NewsGateway {
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     private final NewsApiGateway newsApiGateway;
-    private final TopHeadlinesMapper topHeadlinesMapper;
+    private final ArticleMapper articleMapper;
     private final SourceMapper sourceMapper;
 
     @Inject
-    public NewsGatewayImpl(NewsApiGateway newsApiGateway, TopHeadlinesMapper topHeadlinesMapper, SourceMapper sourceMapper) {
+    public NewsGatewayImpl(NewsApiGateway newsApiGateway, ArticleMapper articleMapper, SourceMapper sourceMapper) {
         this.newsApiGateway = newsApiGateway;
-        this.topHeadlinesMapper = topHeadlinesMapper;
+        this.articleMapper = articleMapper;
         this.sourceMapper = sourceMapper;
     }
 
@@ -38,7 +38,7 @@ public class NewsGatewayImpl implements NewsGateway {
                     topHeadlinesSearch.getCountry(), topHeadlinesSearch.getCategory(),
                     topHeadlinesSearch.getPage(), topHeadlinesSearch.getPageSize());
 
-            return topHeadlinesMapper.from(topHeadlines);
+            return articleMapper.from(topHeadlines);
         } catch (NewsApiClientException e) {
             logger.error("An error occurred when searching for top headlines. {}", topHeadlinesSearch, e);
             throw new NewsGatewayException("An error occurred while searching for top headlines.");

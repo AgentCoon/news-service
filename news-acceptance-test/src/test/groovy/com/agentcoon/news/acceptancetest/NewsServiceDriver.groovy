@@ -1,7 +1,9 @@
 package com.agentcoon.news.acceptancetest
 
+import com.agentcoon.news.api.SourceDto
 import com.agentcoon.news.api.TopHeadlinesDto
 import com.fasterxml.jackson.annotation.JsonInclude
+import com.fasterxml.jackson.core.type.TypeReference
 import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.SerializationFeature
@@ -12,7 +14,6 @@ import com.jayway.restassured.specification.RequestSpecification
 
 import static com.jayway.restassured.RestAssured.given
 import static org.junit.Assert.assertEquals
-import static org.junit.Assert.assertFalse
 
 class NewsServiceDriver {
 
@@ -27,14 +28,58 @@ class NewsServiceDriver {
             .setSerializationInclusion(JsonInclude.Include.NON_NULL)
 
 
-    void searchTopHeadlines(String country, String category) {
+    void topHeadlinesAreFoundForCountryAndCategory(String country, String category) {
 
-        String json = given().spec(appSpec).expect().statusCode(200)
-                .when().get("/v1/news/{country}/{category}", country, category).asString()
+        String json = given().spec(appSpec)
+                .expect()
+                .statusCode(200)
+                .when()
+                .get("/v1/news/{country}/{category}", country, category).asString()
 
         TopHeadlinesDto dto = mapper.readValue(json, TopHeadlinesDto.class)
         assertEquals(dto.getCategory(), category)
         assertEquals(dto.getCountry(), country)
-        assertFalse(dto.getArticles().isEmpty())
+        assertEquals(2, dto.getArticles().size())
+    }
+
+    void topHeadlinesAreFoundForFilteredQuery(String country, String category, String query, String page, String pageSize) {
+
+        String json = given().spec(appSpec)
+                .queryParam("query", query)
+                .queryParam("page", page)
+                .queryParam("pageSize", pageSize)
+                .expect()
+                .statusCode(200)
+                .when()
+                .get("/v1/news/{country}/{category}", country, category).asString()
+
+        TopHeadlinesDto dto = mapper.readValue(json, TopHeadlinesDto.class)
+        assertEquals(dto.getCategory(), category)
+        assertEquals(dto.getCountry(), country)
+        assertEquals(2, dto.getArticles().size())
+    }
+
+    void topHeadlinesSearchReturns500Error(String country, String category) {
+
+        given().spec(appSpec)
+                .expect()
+                .statusCode(500)
+                .when()
+                .get("/v1/news/{country}/{category}", country, category).asString()
+    }
+
+
+    void sourcesAreFoundForCountry(String country) {
+
+        String json = given().spec(appSpec)
+                .queryParam("country", country)
+                .expect()
+                .statusCode(200)
+                .when()
+                .get("/v1/news/sources").asString()
+
+        List<SourceDto> dtos = mapper.readValue(json, new TypeReference<List<SourceDto>>() {})
+        assertEquals(2, dtos.size())
+        assertEquals(country, dtos.get(0).getCountry())
     }
 }

@@ -39,9 +39,10 @@ public class NewsResource {
     }
 
     @GET
-    public Response searchTopHeadlines(@QueryParam("query") String query,
-                                       @QueryParam("country") String country,
-                                       @QueryParam("category") String category,
+    @Path("/{country}/{category}")
+    public Response searchTopHeadlines(@PathParam("country") String country,
+                                       @PathParam("category") String category,
+                                       @QueryParam("query") String query,
                                        @QueryParam("page") Integer page,
                                        @QueryParam("pageSize") Integer pageSize) {
 
@@ -55,23 +56,6 @@ public class NewsResource {
 
         logger.debug("Top headlines search {}", searchQuery);
 
-        try {
-            return searchTopHeadlines(searchQuery);
-        } catch (NewsGatewayException a) {
-            return Response.status(HttpStatus.INTERNAL_SERVER_ERROR_500)
-                    .entity(new ErrorDto("An error occurred while processing your request")).build();
-        }
-    }
-
-    @GET
-    @Path("/{country}/{category}")
-    public Response getTopHeadlines(@PathParam("country") String country, @PathParam("category") String category) throws NewsGatewayException {
-
-        TopHeadlinesSearch searchQuery = aTopHeadlinesSearch()
-                .withCountry(country)
-                .withCategory(category)
-                .build();
-
         return getTopHeadlines(searchQuery);
     }
 
@@ -79,7 +63,7 @@ public class NewsResource {
     @Path("/sources")
     public Response searchSources(@QueryParam("category") String category,
                                   @QueryParam("country") String country,
-                                  @QueryParam("language") String language) throws NewsGatewayException {
+                                  @QueryParam("language") String language) {
 
         SourceSearch sourceSearch = aSourceSearch()
                 .withCategory(category)
@@ -89,28 +73,30 @@ public class NewsResource {
 
         logger.debug("Sources search {}", sourceSearch);
 
-        return searchSources(sourceSearch);
+        return getSources(sourceSearch);
     }
 
-    Response searchTopHeadlines(TopHeadlinesSearch searchQuery) throws NewsGatewayException {
-        List<Article> topHeadlines = topHeadlinesSearchService.searchTopHeadlineNews(searchQuery);
+    Response getTopHeadlines(TopHeadlinesSearch searchQuery) {
 
-        return Response.ok(topHeadlines.stream()
-                .map(articleMapper::from)
-                .collect(toList())).build();
+        try {
+            List<Article> topHeadlines = topHeadlinesSearchService.searchTopHeadlineNews(searchQuery);
+
+            return Response.ok(articleMapper.from(topHeadlines, searchQuery.getCountry(), searchQuery.getCategory())).build();
+        } catch (NewsGatewayException e) {
+            return Response.status(HttpStatus.INTERNAL_SERVER_ERROR_500)
+                    .entity(new ErrorDto("An error occurred while processing your request.")).build();
+        }
     }
 
-    Response getTopHeadlines(TopHeadlinesSearch searchQuery) throws NewsGatewayException {
-        List<Article> top = topHeadlinesSearchService.searchTopHeadlineNews(searchQuery);
+    Response getSources(SourceSearch sourceSearch) {
 
-        return Response.ok(articleMapper.from(top, searchQuery.getCountry(), searchQuery.getCategory())).build();
-    }
+        try {
+            List<Source> sources = topHeadlinesSearchService.searchSources(sourceSearch);
 
-    Response searchSources(SourceSearch sourceSearch) throws NewsGatewayException {
-        List<Source> sources = topHeadlinesSearchService.searchSources(sourceSearch);
-
-        return Response.ok(sources.stream()
-                .map(sourceDtoMapper::from)
-                .collect(toList())).build();
+            return Response.ok(sources.stream().map(sourceDtoMapper::from).collect(toList())).build();
+        } catch (NewsGatewayException e) {
+            return Response.status(HttpStatus.INTERNAL_SERVER_ERROR_500)
+                    .entity(new ErrorDto("An error occurred while processing your request.")).build();
+        }
     }
 }

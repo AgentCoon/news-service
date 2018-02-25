@@ -30,9 +30,50 @@ class TestSpec extends Specification {
         String category = "health"
 
         when:
-        mockNewsApi.newsMockResponse(country, category)
+        mockNewsApi.mockNewsResponseForCountryAndCategory(country, category)
 
         then:
-        newsService.searchTopHeadlines(country, category)
+        newsService.topHeadlinesAreFoundForCountryAndCategory(country, category)
+    }
+
+    def "Should get top headlines for a filtered query"() {
+        logger.info("TestSpec: Should get top headlines for a filtered query")
+
+        String query = "flu"
+        String country = "pl"
+        String category = "health"
+        String page = "1"
+        String pageSize = "8"
+
+        when:
+        mockNewsApi.mockNewsResponseForFilteredQuery(query, country, category, page, pageSize)
+
+        then:
+        newsService.topHeadlinesAreFoundForFilteredQuery(country, category, query, page, pageSize)
+    }
+
+    def "Should return an error when News client fails"() {
+        logger.info("TestSpec: Should return an error when News client fails")
+
+        String country = "pl"
+        String category = "health"
+
+        when:
+        mockNewsApi.mockNewsFailureResponse(country, category)
+
+        then:
+        newsService.topHeadlinesSearchReturns500Error(country, category)
+    }
+
+    def "Should get sources for a country"() {
+        logger.info("TestSpec: Should get sources for a country")
+
+        String country = "es"
+
+        when:
+        mockNewsApi.mockSourcesResponseForCountry(country)
+
+        then:
+        newsService.sourcesAreFoundForCountry(country)
     }
 }

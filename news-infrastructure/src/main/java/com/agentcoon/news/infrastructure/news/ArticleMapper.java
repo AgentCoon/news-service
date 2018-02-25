@@ -9,7 +9,7 @@ import java.util.List;
 import static com.agentcoon.news.domain.news.Article.Builder.anArticle;
 import static java.util.stream.Collectors.toList;
 
-public class TopHeadlinesMapper {
+public class ArticleMapper {
 
     public List<Article> from(TopHeadlinesResponseDto dto) {
         return dto.getArticles().stream().map(this::from).collect(toList());
@@ -20,7 +20,7 @@ public class TopHeadlinesMapper {
                 .withTitle(dto.getTitle())
                 .withSource(dto.getSourceName())
                 .withDescription(dto.getDescription())
-                .withDate(dto.getPublishedAt().toLocalDate())
+                .withPublishedDate(dto.getPublishedAt().toLocalDate())
                 .withArticleUrl(dto.getUrl())
                 .withImageUrl(dto.getUrlToImage()).build();
     }

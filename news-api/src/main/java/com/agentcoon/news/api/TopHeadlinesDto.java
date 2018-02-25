@@ -34,7 +34,7 @@ public class TopHeadlinesDto {
         private String category;
         private List<ArticleDto> articles;
 
-        public static Builder localTopHeadlinesDto() {
+        public static Builder topHeadlinesDto() {
             return new Builder();
         }
 

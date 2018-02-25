@@ -53,4 +53,53 @@ public class NewsApiSourceDto {
     public String getCountry() {
         return country;
     }
+
+    public static final class Builder {
+        private String id;
+        private String name;
+        private String description;
+        private String url;
+        private String category;
+        private String language;
+        private String country;
+
+        public Builder withId(String id) {
+            this.id = id;
+            return this;
+        }
+
+        public Builder withName(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public Builder withDescription(String description) {
+            this.description = description;
+            return this;
+        }
+
+        public Builder withUrl(String url) {
+            this.url = url;
+            return this;
+        }
+
+        public Builder withCategory(String category) {
+            this.category = category;
+            return this;
+        }
+
+        public Builder withLanguage(String language) {
+            this.language = language;
+            return this;
+        }
+
+        public Builder withCountry(String country) {
+            this.country = country;
+            return this;
+        }
+
+        public NewsApiSourceDto build() {
+            return new NewsApiSourceDto(id, name, description, url, category, language, country);
+        }
+    }
 }

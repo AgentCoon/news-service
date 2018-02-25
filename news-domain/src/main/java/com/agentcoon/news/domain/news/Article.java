@@ -7,16 +7,16 @@ public class Article {
     private final String author;
     private final String title;
     private final String description;
-    private final LocalDate date;
+    private final LocalDate publishedDate;
     private final String source;
     private final String articleUrl;
     private final String imageUrl;
 
-    private Article(String author, String title, String description, LocalDate date, String source, String articleUrl, String imageUrl) {
+    private Article(String author, String title, String description, LocalDate publishedDate, String source, String articleUrl, String imageUrl) {
         this.author = author;
         this.title = title;
         this.description = description;
-        this.date = date;
+        this.publishedDate = publishedDate;
         this.source = source;
         this.articleUrl = articleUrl;
         this.imageUrl = imageUrl;
@@ -34,8 +34,8 @@ public class Article {
         return description;
     }
 
-    public LocalDate getDate() {
-        return date;
+    public LocalDate getPublishedDate() {
+        return publishedDate;
     }
 
     public String getSource() {
@@ -54,7 +54,7 @@ public class Article {
         private String author;
         private String title;
         private String description;
-        private LocalDate date;
+        private LocalDate publishedDate;
         private String source;
         private String articleUrl;
         private String imageUrl;
@@ -78,8 +78,8 @@ public class Article {
             return this;
         }
 
-        public Builder withDate(LocalDate date) {
-            this.date = date;
+        public Builder withPublishedDate(LocalDate publishedDate) {
+            this.publishedDate = publishedDate;
             return this;
         }
 
@@ -99,7 +99,7 @@ public class Article {
         }
 
        public Article build() {
-            return new Article(author, title, description, date, source, articleUrl, imageUrl);
+            return new Article(author, title, description, publishedDate, source, articleUrl, imageUrl);
        }
     }
 }

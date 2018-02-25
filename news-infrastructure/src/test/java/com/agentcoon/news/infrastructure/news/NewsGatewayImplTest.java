@@ -27,7 +27,7 @@ import static org.mockito.Mockito.*;
 public class NewsGatewayImplTest {
 
     private NewsApiGateway newsApiGateway;
-    private TopHeadlinesMapper topHeadlinesMapper;
+    private ArticleMapper articleMapper;
     private SourceMapper sourceMapper;
 
     private NewsGatewayImpl newsGateway;
@@ -35,10 +35,10 @@ public class NewsGatewayImplTest {
     @Before
     public void setUp() {
         newsApiGateway = mock(NewsApiGateway.class);
-        topHeadlinesMapper = mock(TopHeadlinesMapper.class);
+        articleMapper = mock(ArticleMapper.class);
         sourceMapper = mock(SourceMapper.class);
 
-        newsGateway = new NewsGatewayImpl(newsApiGateway, topHeadlinesMapper, sourceMapper);
+        newsGateway = new NewsGatewayImpl(newsApiGateway, articleMapper, sourceMapper);
     }
 
     @Test
@@ -58,7 +58,7 @@ public class NewsGatewayImplTest {
         TopHeadlinesResponseDto topHeadlinesResponseDto = new TopHeadlinesResponseDto();
         Article article = anArticle().withTitle(title).build();
 
-        when(topHeadlinesMapper.from(topHeadlinesResponseDto)).thenReturn(Collections.singletonList(article));
+        when(articleMapper.from(topHeadlinesResponseDto)).thenReturn(Collections.singletonList(article));
         when(newsApiGateway.searchTopHeadlines(query, country, null, page, pageSize)).thenReturn(topHeadlinesResponseDto);
 
         List<Article> news = newsGateway.searchTopHeadlines(topHeadlinesSearch);

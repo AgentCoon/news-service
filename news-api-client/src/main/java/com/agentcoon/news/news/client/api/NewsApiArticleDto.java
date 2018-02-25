@@ -59,4 +59,53 @@ public class NewsApiArticleDto {
     public String getSourceName() {
         return source.getName();
     }
+
+    public static final class Builder {
+        private String author;
+        private String title;
+        private String description;
+        private OffsetDateTime publishedAt;
+        private NewsApiSourceDto source;
+        private String url;
+        private String urlToImage;
+
+        public Builder withAuthor(String author) {
+            this.author = author;
+            return this;
+        }
+
+        public Builder withTitle(String title) {
+            this.title = title;
+            return this;
+        }
+
+        public Builder withDescription(String description) {
+            this.description = description;
+            return this;
+        }
+
+        public Builder withPublishedAt(OffsetDateTime publishedAt) {
+            this.publishedAt = publishedAt;
+            return this;
+        }
+
+        public Builder withSource(NewsApiSourceDto source) {
+            this.source = source;
+            return this;
+        }
+
+        public Builder withUrl(String url) {
+            this.url = url;
+            return this;
+        }
+
+        public Builder withUrlToImage(String urlToImage) {
+            this.urlToImage = urlToImage;
+            return this;
+        }
+
+        public NewsApiArticleDto build() {
+            return new NewsApiArticleDto(author, title, description, publishedAt, source, url, urlToImage);
+        }
+    }
 }
