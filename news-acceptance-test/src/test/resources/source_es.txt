@@ -1,0 +1,23 @@
+{
+  "status": "ok",
+  "sources": [
+    {
+      "id": "el-mundo",
+      "name": "El Mundo",
+      "description": "Noticias, actualidad, álbumes, debates, sociedad, servicios, entretenimiento y última hora en España y el mundo.",
+      "url": "http://www.elmundo.es",
+      "category": "general",
+      "language": "es",
+      "country": "es"
+    },
+    {
+      "id": "marca",
+      "name": "Marca",
+      "description": "La mejor información deportiva en castellano actualizada minuto a minuto en noticias, vídeos, fotos, retransmisiones y resultados en directo.",
+      "url": "http://www.marca.com",
+      "category": "sports",
+      "language": "es",
+      "country": "es"
+    }
+  ]
+}

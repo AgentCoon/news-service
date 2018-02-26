@@ -1,0 +1,19 @@
+logging:
+  level: INFO
+  loggers:
+    "com.agentcoon": DEBUG
+
+allowCORS: true
+
+newsApiConfiguration:
+  url: http://localhost:8589/
+  apiKey: apiKey
+
+server:
+  applicationConnectors:
+  - type: h2c
+    port: 8380
+    maxRequestHeaderSize: 100KiB
+  adminConnectors:
+  - type: http
+    port: 8381
