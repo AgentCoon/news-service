@@ -25,12 +25,12 @@ public class NewsApiGateway {
         this.apiKey = apiKey;
     }
 
-    public TopHeadlinesResponseDto searchTopHeadlines(TopHeadlinesSearchDto topHeadlinesSearch) throws NewsApiClientException {
+    public TopHeadlinesResponseDto searchTopHeadlines(TopHeadlinesSearchDto topHeadlinesSearch) {
         return send(newsApiClient.searchTopHeadlines(topHeadlinesSearch.getQuery(), topHeadlinesSearch.getCountry(), topHeadlinesSearch.getCategory(),
                 topHeadlinesSearch.getPage(), topHeadlinesSearch.getPageSize(), apiKey), "failed to get top headlines from News API");
     }
 
-    public SourcesResponseDto searchSources(SourceSearchDto sourceSearch) throws NewsApiClientException {
+    public SourcesResponseDto searchSources(SourceSearchDto sourceSearch) {
         return send(newsApiClient.searchSources(sourceSearch.getCategory(), sourceSearch.getCountry(), sourceSearch.getLanguage(), apiKey),
                 "failed to get article sources from News API");
     }

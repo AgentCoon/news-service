@@ -17,6 +17,11 @@
 
     <dependencies>
         <dependency>
+            <groupId>com.agentcoon</groupId>
+            <artifactId>news-api</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
             <groupId>javax.inject</groupId>
             <artifactId>javax.inject</artifactId>
             <version>${javax.inject.version}</version>
@@ -35,11 +40,6 @@
             <groupId>com.squareup.retrofit2</groupId>
             <artifactId>converter-jackson</artifactId>
             <version>${retrofit.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.agentcoon</groupId>
-            <artifactId>news-api</artifactId>
-            <version>1.0-SNAPSHOT</version>
         </dependency>
     </dependencies>
 

@@ -30,10 +30,13 @@ class TestSpec extends Specification {
         String category = "health"
 
         when:
-        mockNewsApi.mockNewsResponseForCountryAndCategory(country, category)
+        mockNewsApi.mockNewsResponseForCountryAndCategory(country, category, TestUtil.dataFileToString("pl_health.txt"))
 
         then:
-        newsService.topHeadlinesAreFoundForCountryAndCategory(country, category)
+        String response = newsService.topHeadlinesAreFoundForCountryAndCategory(country, category)
+
+        expect:
+        response == TestUtil.dataFileToString("pl_health_expected.txt")
     }
 
     def "Should get top headlines for a filtered query"() {
@@ -46,10 +49,13 @@ class TestSpec extends Specification {
         String pageSize = "8"
 
         when:
-        mockNewsApi.mockNewsResponseForFilteredQuery(query, country, category, page, pageSize)
+        mockNewsApi.mockNewsResponseForFilteredQuery(query, country, category, page, pageSize, TestUtil.dataFileToString("pl_health.txt"))
 
         then:
-        newsService.topHeadlinesAreFoundForFilteredQuery(country, category, query, page, pageSize)
+        String response = newsService.topHeadlinesAreFoundForFilteredQuery(country, category, query, page, pageSize)
+
+        expect:
+        response == TestUtil.dataFileToString("pl_health_expected.txt")
     }
 
     def "Should return an error when page size greater than 100"() {
@@ -84,9 +90,12 @@ class TestSpec extends Specification {
         String country = "es"
 
         when:
-        mockNewsApi.mockSourcesResponseForCountry(country)
+        mockNewsApi.mockSourcesResponseForCountry(country, TestUtil.dataFileToString("source_es.txt"))
 
         then:
-        newsService.sourcesAreFoundForCountry(country)
+        String response = newsService.sourcesAreFoundForCountry(country)
+
+        expect:
+        response == TestUtil.dataFileToString("source_es_expected.txt")
     }
 }
