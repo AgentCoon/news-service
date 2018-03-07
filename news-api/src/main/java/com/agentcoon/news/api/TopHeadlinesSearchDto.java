@@ -1,6 +1,6 @@
-package com.agentcoon.news.domain.news;
+package com.agentcoon.news.api;
 
-public class TopHeadlinesSearch {
+public class TopHeadlinesSearchDto {
 
     private static final int DEFAULT_PAGE = 0;
     private static final int DEFAULT_PAGE_SIZE = 20;
@@ -11,7 +11,7 @@ public class TopHeadlinesSearch {
     private final String country;
     private final String category;
 
-    private TopHeadlinesSearch(Integer pageSize, Integer page, String query, String country, String category) {
+    private TopHeadlinesSearchDto(Integer pageSize, Integer page, String query, String country, String category) {
         this.pageSize = pageSize;
         this.page = page;
         this.query = query;
@@ -53,7 +53,7 @@ public class TopHeadlinesSearch {
         private String country;
         private String category;
 
-        public static Builder aTopHeadlinesSearch() {
+        public static Builder aTopHeadlinesSearchDto() {
             return new Builder();
         }
 
@@ -82,8 +82,8 @@ public class TopHeadlinesSearch {
             return this;
         }
 
-        public TopHeadlinesSearch build() {
-            return new TopHeadlinesSearch(pageSize, page, query, country, category);
+        public TopHeadlinesSearchDto build() {
+            return new TopHeadlinesSearchDto(pageSize, page, query, country, category);
         }
     }
 }

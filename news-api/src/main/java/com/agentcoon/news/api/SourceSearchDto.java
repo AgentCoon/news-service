@@ -1,12 +1,12 @@
-package com.agentcoon.news.domain.news.source;
+package com.agentcoon.news.api;
 
-public class SourceSearch {
+public class SourceSearchDto {
 
     private final String category;
     private final String language;
     private final String country;
 
-    private SourceSearch(String category, String language, String country) {
+    private SourceSearchDto(String category, String language, String country) {
         this.category = category;
         this.language = language;
         this.country = country;
@@ -35,7 +35,7 @@ public class SourceSearch {
         private String language;
         private String country;
 
-        public static Builder aSourceSearch() {
+        public static Builder aSourceSearchDto() {
             return new Builder();
         }
 
@@ -54,8 +54,8 @@ public class SourceSearch {
             return this;
         }
 
-        public SourceSearch build() {
-            return new SourceSearch(category, language, country);
+        public SourceSearchDto build() {
+            return new SourceSearchDto(category, language, country);
         }
     }
 }

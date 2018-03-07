@@ -1,10 +1,13 @@
 package com.agentcoon.news.rest;
 
 import com.agentcoon.news.api.SourceDto;
-import com.agentcoon.news.domain.news.source.Source;
+import com.agentcoon.news.news.client.api.NewsApiSourceDto;
+import com.agentcoon.news.news.client.api.SourcesResponseDto;
 import org.junit.Test;
 
-import static com.agentcoon.news.domain.news.source.Source.Builder.aSource;
+import java.util.Collections;
+import java.util.List;
+
 import static org.junit.Assert.assertEquals;
 
 public class SourceDtoMapperTest {
@@ -21,15 +24,22 @@ public class SourceDtoMapperTest {
         String language = "es";
         String country = "Spain";
 
-        Source source = aSource().withId(id)
+        NewsApiSourceDto newsApiSourceDto = new NewsApiSourceDto.Builder()
+                .withId(id)
                 .withName(name)
                 .withDescription(description)
                 .withUrl(url)
                 .withCategory(category)
                 .withLanguage(language)
-                .withCountry(country).build();
+                .withCountry(country)
+                .build();
 
-        SourceDto dto = mapper.from(source);
+        SourcesResponseDto source = new SourcesResponseDto(Collections.singletonList(newsApiSourceDto));
+
+        List<SourceDto> dtos = mapper.from(source);
+        assertEquals(1, dtos.size());
+
+        SourceDto dto = dtos.get(0);
         assertEquals(id, dto.getId());
         assertEquals(name, dto.getName());
         assertEquals(description, dto.getDescription());

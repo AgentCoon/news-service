@@ -59,21 +59,12 @@ class NewsServiceDriver {
         assertEquals(2, dto.getArticles().size())
     }
 
-    void topHeadlinesSearchReturns500Error(String country, String category) {
-
-        given().spec(appSpec)
-                .expect()
-                .statusCode(500)
-                .when()
-                .get("/v1/news/{country}/{category}", country, category).asString()
-    }
-
-    void topHeadlinesSearchReturns400Error(String country, String category, Integer pageSize) {
+    void topHeadlinesSearchReturnsHTTPError(String country, String category, Integer pageSize, Integer status) {
 
         given().spec(appSpec)
                 .queryParam("pageSize", pageSize)
                 .expect()
-                .statusCode(400)
+                .statusCode(status)
                 .when()
                 .get("/v1/news/{country}/{category}", country, category).asString()
     }

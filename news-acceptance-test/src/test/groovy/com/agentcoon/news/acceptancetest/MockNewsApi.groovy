@@ -42,14 +42,14 @@ class MockNewsApi {
                 .withBody(TestUtil.dataFileToString(String.format("%s_%s.txt", country, category)))))
     }
 
-    void mockNewsFailureResponse(String country, String category) {
+    void mockNewsFailureResponse(String country, String category, Integer statusCode) {
 
         wireMockServer.stubFor(get(urlPathMatching(TestParams.MOCK_NEWS_CONTEXT_PATH + "top-headlines"))
                 .withQueryParam("apiKey", equalTo("apiKey"))
                 .withQueryParam("country", equalTo(country))
                 .withQueryParam("category", equalTo(category))
                 .willReturn(aResponse()
-                .withStatus(500)
+                .withStatus(statusCode)
                 .withHeader("Content-Type", MediaType.APPLICATION_JSON)
                 .withBody(TestUtil.dataFileToString("newsErrorResponse.txt"))))
     }

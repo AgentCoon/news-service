@@ -61,7 +61,7 @@ class TestSpec extends Specification {
         Integer pageSize = 800
 
         then:
-        newsService.topHeadlinesSearchReturns400Error(country, category, pageSize)
+        newsService.topHeadlinesSearchReturnsHTTPError(country, category, pageSize, 400)
     }
 
     def "Should return an error when News client fails"() {
@@ -69,12 +69,13 @@ class TestSpec extends Specification {
 
         String country = "pl"
         String category = "health"
+        Integer pageSize = 50
 
         when:
-        mockNewsApi.mockNewsFailureResponse(country, category)
+        mockNewsApi.mockNewsFailureResponse(country, category, 500)
 
         then:
-        newsService.topHeadlinesSearchReturns500Error(country, category)
+        newsService.topHeadlinesSearchReturnsHTTPError(country, category, pageSize, 502)
     }
 
     def "Should get sources for a country"() {

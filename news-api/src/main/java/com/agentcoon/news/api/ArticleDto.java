@@ -19,7 +19,7 @@ public class ArticleDto {
     public ArticleDto() {
     }
 
-    public ArticleDto(String author, String title, String description, LocalDate date, String sourceName, String articleUrl, String imageUrl) {
+    private ArticleDto(String author, String title, String description, LocalDate date, String sourceName, String articleUrl, String imageUrl) {
         this.author = author;
         this.title = title;
         this.description = description;

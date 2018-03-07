@@ -2,14 +2,15 @@ package com.agentcoon.news.rest;
 
 import com.agentcoon.news.api.ArticleDto;
 import com.agentcoon.news.api.TopHeadlinesDto;
-import com.agentcoon.news.domain.news.Article;
+import com.agentcoon.news.news.client.api.NewsApiArticleDto;
+import com.agentcoon.news.news.client.api.TopHeadlinesResponseDto;
 import org.junit.Test;
 
-import java.time.LocalDate;
-import java.time.Month;
+import java.time.*;
 import java.util.Collections;
 
-import static com.agentcoon.news.domain.news.Article.Builder.anArticle;
+import static com.agentcoon.news.news.client.api.NewsApiArticleDto.Builder.aNewsApiArticleDto;
+import static com.agentcoon.news.news.client.api.NewsApiSourceDto.Builder.aNewsApiSourceDto;
 import static org.junit.Assert.assertEquals;
 
 public class ArticleDtoMapperTest {
@@ -26,18 +27,22 @@ public class ArticleDtoMapperTest {
         String description = "Description";
         String articleUrl = "http://www.url.com";
         String imageUrl = "http://www.image.com";
-        LocalDate publishedDate = LocalDate.of(2016, Month.AUGUST, 8);
+        OffsetDateTime offsetDateTime = OffsetDateTime.of(LocalDateTime.of(2016, Month.AUGUST, 8, 12, 45, 00), ZoneOffset.UTC);
 
-        Article article = anArticle()
+        LocalDate expectedPublishedDate = LocalDate.of(2016, Month.AUGUST, 8);
+
+        NewsApiArticleDto article = aNewsApiArticleDto()
                 .withAuthor(author)
                 .withTitle(title)
                 .withDescription(description)
-                .withPublishedDate(publishedDate)
-                .withSource(source)
-                .withArticleUrl(articleUrl)
-                .withImageUrl(imageUrl).build();
+                .withPublishedAt(offsetDateTime)
+                .withSource(aNewsApiSourceDto().withName(source).build())
+                .withUrl(articleUrl)
+                .withUrlToImage(imageUrl).build();
 
-        TopHeadlinesDto dto = mapper.from(Collections.singletonList(article), country, category);
+        TopHeadlinesResponseDto topHeadlinesResponseDto = new TopHeadlinesResponseDto(Collections.singletonList(article));
+
+        TopHeadlinesDto dto = mapper.from(topHeadlinesResponseDto, country, category);
         assertEquals(country, dto.getCountry());
         assertEquals(category, dto.getCategory());
         assertEquals(1, dto.getArticles().size());
@@ -46,7 +51,7 @@ public class ArticleDtoMapperTest {
         assertEquals(author, articleDto.getAuthor());
         assertEquals(title, articleDto.getTitle());
         assertEquals(description, articleDto.getDescription());
-        assertEquals(publishedDate, articleDto.getDate());
+        assertEquals(expectedPublishedDate, articleDto.getDate());
         assertEquals(source, articleDto.getSourceName());
         assertEquals(articleUrl, articleDto.getArticleUrl());
         assertEquals(imageUrl, articleDto.getImageUrl());
