@@ -16,7 +16,7 @@ public class NewsApiSourceDto {
     public NewsApiSourceDto() {
     }
 
-    public NewsApiSourceDto(String id, String name, String description, String url, String category, String language, String country) {
+    private NewsApiSourceDto(String id, String name, String description, String url, String category, String language, String country) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -62,6 +62,10 @@ public class NewsApiSourceDto {
         private String category;
         private String language;
         private String country;
+
+        public static Builder aNewsApiSourceDto() {
+            return new Builder();
+        }
 
         public Builder withId(String id) {
             this.id = id;

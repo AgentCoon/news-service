@@ -11,7 +11,7 @@ public class TopHeadlinesDto {
     public TopHeadlinesDto() {
     }
 
-    public TopHeadlinesDto(String country, String category, List<ArticleDto> articles) {
+    private TopHeadlinesDto(String country, String category, List<ArticleDto> articles) {
         this.country = country;
         this.category = category;
         this.articles = articles;

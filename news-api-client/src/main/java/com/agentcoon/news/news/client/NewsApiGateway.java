@@ -1,5 +1,7 @@
 package com.agentcoon.news.news.client;
 
+import com.agentcoon.news.api.SourceSearchDto;
+import com.agentcoon.news.api.TopHeadlinesSearchDto;
 import com.agentcoon.news.news.client.api.SourcesResponseDto;
 import com.agentcoon.news.news.client.api.TopHeadlinesResponseDto;
 import com.agentcoon.news.news.client.exception.NewsApiClientException;
@@ -23,22 +25,33 @@ public class NewsApiGateway {
         this.apiKey = apiKey;
     }
 
-    public TopHeadlinesResponseDto searchTopHeadlines(String query, String country, String category, Integer page, Integer pageSize) throws NewsApiClientException {
-        return send(newsApiClient.searchTopHeadlines(query, country, category, page, pageSize, apiKey), "failed to get top headlines from News API");
+    public TopHeadlinesResponseDto searchTopHeadlines(TopHeadlinesSearchDto topHeadlinesSearch) {
+        return send(newsApiClient.searchTopHeadlines(topHeadlinesSearch.getQuery(), topHeadlinesSearch.getCountry(), topHeadlinesSearch.getCategory(),
+                topHeadlinesSearch.getPage(), topHeadlinesSearch.getPageSize(), apiKey), "failed to get top headlines from News API");
     }
 
-    public SourcesResponseDto searchSources(String category, String country, String language) throws NewsApiClientException {
-        return send(newsApiClient.searchSources(category, country, language, apiKey), "failed to get article sources from News API");
+    public SourcesResponseDto searchSources(SourceSearchDto sourceSearch) {
+        return send(newsApiClient.searchSources(sourceSearch.getCategory(), sourceSearch.getCountry(), sourceSearch.getLanguage(), apiKey),
+                "failed to get article sources from News API");
     }
 
-    private <T> T send(Call<T> call, String errorMsg) throws NewsApiClientException {
+    private <T> T send(Call<T> call, String errorMsg) {
 
         try {
             Response<T> response = call.execute();
 
             if (!response.isSuccessful()) {
                 logger.error("Error response {} from News API, {}", response, errorMsg);
-                throw new NewsApiClientException(errorMsg);
+
+                switch(response.code()) {
+                    case 400:
+                    case 429:
+                        throw new NewsApiClientException(String.format("%s. Reason: %s", errorMsg, response.message()), response.code());
+                    case 500:
+                        throw new NewsApiClientException(errorMsg, 502);
+                    default:
+                        throw new NewsApiClientException(errorMsg);
+                }
             }
 
             return response.body();

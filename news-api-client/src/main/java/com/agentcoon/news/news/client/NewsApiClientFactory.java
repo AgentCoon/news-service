@@ -5,8 +5,6 @@ import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.jackson.JacksonConverterFactory;
 
-import java.util.concurrent.TimeUnit;
-
 public class NewsApiClientFactory {
 
     private final ObjectMapper objectMapper;
@@ -30,9 +28,6 @@ public class NewsApiClientFactory {
 
     private OkHttpClient getHttpClient() {
         return new OkHttpClient().newBuilder()
-                .connectTimeout(30, TimeUnit.SECONDS)
-                .writeTimeout(30, TimeUnit.SECONDS)
-                .readTimeout(30, TimeUnit.SECONDS)
                 .build();
     }
 }

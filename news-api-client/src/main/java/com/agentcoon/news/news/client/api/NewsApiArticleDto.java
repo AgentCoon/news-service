@@ -2,6 +2,7 @@ package com.agentcoon.news.news.client.api;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import java.time.LocalDate;
 import java.time.OffsetDateTime;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -18,7 +19,7 @@ public class NewsApiArticleDto {
     public NewsApiArticleDto() {
     }
 
-    public NewsApiArticleDto(String author, String title, String description, OffsetDateTime publishedAt, NewsApiSourceDto source, String url, String urlToImage) {
+    private NewsApiArticleDto(String author, String title, String description, OffsetDateTime publishedAt, NewsApiSourceDto source, String url, String urlToImage) {
         this.author = author;
         this.title = title;
         this.description = description;
@@ -60,6 +61,10 @@ public class NewsApiArticleDto {
         return source.getName();
     }
 
+    public LocalDate getPublishedDate() {
+        return publishedAt != null ? publishedAt.toLocalDate() : null;
+    }
+
     public static final class Builder {
         private String author;
         private String title;
@@ -68,6 +73,10 @@ public class NewsApiArticleDto {
         private NewsApiSourceDto source;
         private String url;
         private String urlToImage;
+
+        public static Builder aNewsApiArticleDto() {
+            return new Builder();
+        }
 
         public Builder withAuthor(String author) {
             this.author = author;
