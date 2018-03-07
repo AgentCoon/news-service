@@ -6,6 +6,8 @@ import com.agentcoon.news.news.client.NewsApiGateway;
 import com.agentcoon.news.news.client.api.SourcesResponseDto;
 import com.agentcoon.news.news.client.api.TopHeadlinesResponseDto;
 import com.agentcoon.news.news.client.exception.NewsApiClientException;
+
+import org.eclipse.jetty.http.HttpStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -13,6 +15,11 @@ import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.List;
+
+import static com.agentcoon.news.domain.news.TopHeadlinesSearch.Builder.aTopHeadlinesSearch;
+import static com.agentcoon.news.domain.news.source.SourceSearch.Builder.aSourceSearch;
+import static java.util.stream.Collectors.toList;
 
 import static com.agentcoon.news.api.SourceSearchDto.Builder.aSourceSearchDto;
 import static com.agentcoon.news.api.TopHeadlinesSearchDto.Builder.aTopHeadlinesSearchDto;
